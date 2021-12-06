@@ -4,7 +4,6 @@ use std::io::{
 	prelude::*,
 };
 use std::collections::HashMap;
-use retain_mut::RetainMut;
 use vek::vec::repr_c::{Vec2};
 
 type Pos = Vec2<i32>;
