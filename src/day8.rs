@@ -33,25 +33,25 @@ pub fn solve() {
 		let pat1 = known.get(&1).unwrap().clone();
 		for s in unkown.into_iter() {
 			if s.is_superset(&pat4) {
-				known.insert(9, s.clone());
+				known.insert(9, s);
 			}
 			else if s.len() == 6 && s.union(&pat1).count() == 7 {
-				known.insert(6, s.clone());
+				known.insert(6, s);
 			}
 			else if s.len() == 5 && s.union(&pat4).count() == 7 {
-				known.insert(2, s.clone());
+				known.insert(2, s);
 			}
 			else if s.len() == 5 && s.is_superset(&pat1) {
-				known.insert(3, s.clone());
+				known.insert(3, s);
 			}
 			else if s.is_superset(&pat1) {
-				known.insert(0, s.clone());
+				known.insert(0, s);
 			}
 			else if s.is_superset(&pat1) {
-				known.insert(0, s.clone());
+				known.insert(0, s);
 			}
 			else {
-				known.insert(5, s.clone()); 
+				known.insert(5, s); 
 			}
 		}
 		assert!(known.len() == 10);
