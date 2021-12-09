@@ -201,4 +201,21 @@ impl<T> Array2D<T> {
 	pub fn rows_iter_mut(&mut self) -> std::slice::ChunksExactMut<T> {
 		self.data.chunks_exact_mut(self.width)
 	}
+
+	pub fn neighbours(&self, p: Pos) -> [Option<Pos>; 4] {
+		let mut res = [None; 4];
+		if p.x > 0 {
+			res[0] = Some(Pos::new(p.x - 1, p.y));
+		}
+		if p.x + 1 < self.width {
+			res[1] = Some(Pos::new(p.x + 1, p.y));
+		}
+		if p.y > 0 {
+			res[2] = Some(Pos::new(p.x, p.y - 1));
+		}
+		if p.y + 1 < self.height {
+			res[3] = Some(Pos::new(p.x, p.y + 1));
+		}
+		res
+	}
 }
