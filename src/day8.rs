@@ -11,6 +11,7 @@ pub fn solve() {
 	let mut it = BufReader::new(f).lines().map(Result::unwrap);
 	let mut p1 = 0;
 	let mut p2 = 0;
+	let timer = std::time::Instant::now();
 	while let Some(line) = it.next() {
 		let (variants, code) = line.split_once(" | ").unwrap();
 		p1 += code.split(' ').fold(0, |acc, s| {
@@ -59,9 +60,8 @@ pub fn solve() {
 			10 * acc + find_key_for_value(&known, &s.chars().collect()).unwrap()
 		});
 		p2 += num;
-		// println!("{}", num);
 	}
-
+	println!("{}", timer.elapsed().as_secs_f32());
 	println!("{} {}", p1, p2);
 }
 

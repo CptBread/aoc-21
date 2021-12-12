@@ -168,6 +168,22 @@ impl<T> Array2D<T> {
 		}
 	}
 
+	pub fn pos_filter<P: TryInto<Pos>>(&self, pos: P) -> Option<Pos> {
+		let pos: Pos = pos.try_into().ok()?;
+		if pos.x >= self.width {
+			None
+		} else if pos.y >= self.height {
+			None
+		} else {
+			Some(pos)
+		}
+	}
+
+	pub fn pos_offset(&self, pos: Pos, dx: isize, dy: isize) -> Option<Pos> {
+		let pos = Pos::new((pos.x as isize + dx).try_into().ok()?, (pos.y as isize + dy).try_into().ok()?);
+		self.pos_filter(pos)
+	}
+
 	pub fn idx_to_pos(&self, idx: usize) -> Pos {
 		Pos::new(idx % self.width, idx / self.width)
 	}
@@ -204,18 +220,23 @@ impl<T> Array2D<T> {
 
 	pub fn neighbours(&self, p: Pos) -> [Option<Pos>; 4] {
 		let mut res = [None; 4];
-		if p.x > 0 {
-			res[0] = Some(Pos::new(p.x - 1, p.y));
-		}
-		if p.x + 1 < self.width {
-			res[1] = Some(Pos::new(p.x + 1, p.y));
-		}
-		if p.y > 0 {
-			res[2] = Some(Pos::new(p.x, p.y - 1));
-		}
-		if p.y + 1 < self.height {
-			res[3] = Some(Pos::new(p.x, p.y + 1));
-		}
+		res[0] = self.pos_offset(p, 0 - 1, 0);
+		res[1] = self.pos_offset(p, 0 + 1, 0);
+		res[2] = self.pos_offset(p, 0, 0 - 1);
+		res[3] = self.pos_offset(p, 0, 0 + 1);
+		res
+	}
+
+	pub fn neighbours_diag(&self, p: Pos) -> [Option<Pos>; 8] {
+		let mut res = [None; 8];
+		res[0] = self.pos_offset(p, 0 - 1, 0);
+		res[1] = self.pos_offset(p, 0 + 1, 0);
+		res[2] = self.pos_offset(p, 0, 0 - 1);
+		res[3] = self.pos_offset(p, 0, 0 + 1);
+		res[4] = self.pos_offset(p, 0 - 1, 0 - 1);
+		res[5] = self.pos_offset(p, 0 + 1, 0 + 1);
+		res[6] = self.pos_offset(p, 0 + 1, 0 - 1);
+		res[7] = self.pos_offset(p, 0 - 1, 0 + 1);
 		res
 	}
 }
