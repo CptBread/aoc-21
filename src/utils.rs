@@ -210,6 +210,15 @@ impl<T> Array2D<T> {
 		}
 	}
 
+	pub fn for_each_mut<F: FnMut(Pos, &mut T)>(&mut self, mut f : F) {
+		for y in 0..self.height {
+			for x in 0..self.width {
+				let at = Pos::new(x, y);
+				f(at, self.get_mut(at).unwrap());
+			}
+		}
+	}
+
 	pub fn rows_iter(&self) -> std::slice::ChunksExact<T> {
 		self.data.chunks_exact(self.width)
 	}

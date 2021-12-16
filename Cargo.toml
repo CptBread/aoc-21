@@ -10,3 +10,4 @@ itertools = "0.9.*"
 vek = "0.15.*"
 intbits = "0.2.0"
 retain_mut = "0.1.5"
+sorted_bread_box = {git = "https://github.com/CptBread/sorted_bread_box"}

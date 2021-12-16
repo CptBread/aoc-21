@@ -9,6 +9,7 @@ dependencies = [
  "intbits",
  "itertools",
  "retain_mut",
+ "sorted_bread_box",
  "vek",
 ]
 
@@ -134,6 +135,11 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "sorted_bread_box"
+version = "0.1.0"
+source = "git+https://github.com/CptBread/sorted_bread_box#90a42c757dd496ab0dd16e556dc76d31943f11dd"
 
 [[package]]
 name = "static_assertions"
