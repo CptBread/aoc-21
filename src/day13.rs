@@ -3,7 +3,7 @@ use std::io::{
 	BufReader,
 	prelude::*,
 };
-use std::collections::{HashSet, HashMap};
+use std::collections::{HashSet};
 use vek::vec::repr_c::{Vec2};
 
 #[allow(dead_code)]

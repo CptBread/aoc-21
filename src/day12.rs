@@ -3,7 +3,7 @@ use std::io::{
 	BufReader,
 	prelude::*,
 };
-use std::collections::{HashSet, HashMap};
+use std::collections::{HashMap};
 
 struct Node(bool, Vec<usize>, String);
 

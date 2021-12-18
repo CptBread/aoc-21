@@ -15,7 +15,7 @@ mod day14;
 mod day15;
 mod day16;
 mod day17;
-// mod day18;
+mod day18;
 // mod day19;
 // mod day20;
 // mod day21;
@@ -46,7 +46,7 @@ fn main() {
 		day15::solve,
 		day16::solve,
 		day17::solve,
-		// day18::solve,
+		day18::solve,
 		// day19::solve,
 		// day20::solve,
 		// day21::solve,

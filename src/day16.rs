@@ -1,10 +1,8 @@
 use std::fs::File;
 use std::io::{
-	BufReader,
 	prelude::*,
 };
-use std::collections::{VecDeque, HashSet, HashMap};
-use vek::vec::repr_c::{Vec2};
+use std::collections::VecDeque;
 use intbits::Bits;
 
 #[derive(Default, Clone)]
@@ -55,7 +53,7 @@ pub fn solve() {
 	bits.buff = data.chars().map(|c| c.to_digit(16).unwrap() as u8).collect();
 
 	let mut versum = 0;
-	let (_, val) = read_packet(&mut bits, &mut |ver, typ| versum += ver);
+	let (_, val) = read_packet(&mut bits, &mut |ver, _| versum += ver);
 	println!("{} {}", versum, val);
 }
 
@@ -66,7 +64,7 @@ pub fn read_packet<F>(bits: &mut BitReader, pack_func: &mut F) -> (u64, u64)
 	let typ = bits.read(3).unwrap();
 	pack_func(ver, typ);
 	if typ == 4 {
-		let (read, value) = read_val(bits, pack_func);
+		let (read, value) = read_val(bits);
 		// println!("VAL {}", value);
 		return (read + 6, value);
 	}
@@ -116,9 +114,7 @@ pub fn read_op<F>(op: u64, bits: &mut BitReader, pack_func: &mut F) -> (u64, u64
 	// bits.clear_cur();
 }
 
-pub fn read_val<F>(bits: &mut BitReader, pack_func: &mut F) -> (u64, u64)
-	where F: FnMut(u64, u64)
-{
+pub fn read_val(bits: &mut BitReader) -> (u64, u64) {
 	let mut value = 0;
 	let mut read = 0;
 	loop {
